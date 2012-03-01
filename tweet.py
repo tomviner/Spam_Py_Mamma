@@ -35,16 +35,23 @@ class tweet_mama:
 	def mentions(self):
 		m = self.api.mentions()
 		
-		texts = [ n.text for n in m ]
+		#texts = [ n.text for n in m ]
 		texts = [ n.user.screen_name for n in m ]
 
-		
 		replies = [ '@' + n.user.screen_name + ': ' + self.replier.analyse_tweet(n.text) + ' #ldnpydojo' for n in m ]
 
 		for reply in replies:
-			self.tweet(reply)
-		
+			try:	
+				self.tweet(reply)
+			except tweepy.TweepError:
+				pass
 
+	def search(self):
+		m = self.api.search('#ldnpydojo')
+		
+		#replies = [ '@' + n.user.screen_name + ': ' + self.replier.analyse_tweet(n.text) + ' #ldnpydojo' for n in m ]
+
+		return m
 
 # search for 'hammer' 
 # respond to roman numerals
