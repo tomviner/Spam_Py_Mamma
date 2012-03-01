@@ -1,3 +1,4 @@
+import re
 
 vals = {
     'I': 1,
@@ -12,9 +13,9 @@ vals = {
 def to_den(rom):
     """
     >>> to_den('I')
-    1
+    '1'
     >>> to_den('XXIV')
-    24
+    '24'
     """
     tot = 0
     last_l = 0
@@ -25,23 +26,40 @@ def to_den(rom):
         else:
             tot += val
         last_l = val
-    return tot
+    return str(tot)
 
+def splitter(s):
+    prolematic_chars = '()+-/*'
+    for l in prolematic_chars: 
+        s = s.replace(l, ' %s ' % l)
+    return s.split()
 
 def attempt_roman(tweet):
     """
     >>> attempt_roman('I love you!')
-    1
+    
     >>> attempt_roman('Please tell me the arabic numeral for MMXII')
-    2012
+    'Please tell me the arabic numeral for 2012'
+    >>> attempt_roman('( IV + MM ) / II')
+    '1002'
+    >>> attempt_roman('(IV+MM)/II')
+    '1002'
     >>> attempt_roman('this has no roman NUMS')
 
     """
-    for word in tweet.split():
-        if len(word) == 1:
+    orig = tweet
+    for word in splitter(tweet):
+        if tweet == orig and len(word) == 1:
             continue
         try:
-            return to_den(word)
+            tweet = tweet.replace(word, to_den(word))
         except KeyError:
             pass
+        #print tweet
+    if orig != tweet:
+        #print ''.join(sorted(set(tweet)))
+        #print ''.join(sorted(set('()1234567890+-/*. ')))
+        if not set(tweet) - set('()1234567890+-/*. '):
+            return str(eval(tweet))
+        return tweet
     return None
