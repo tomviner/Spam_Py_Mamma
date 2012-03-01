@@ -1,6 +1,6 @@
 import tweepy
-import twitter
 
+from replier import Replier
 
 class tweet_mama:
 	def __init__(self):
@@ -15,6 +15,8 @@ class tweet_mama:
 		
 		auth = tweepy.OAuthHandler(self.CONSUMER_KEY, self.CONSUMER_SECRET)
 		auth.set_access_token(self.ACCESS_KEY, self.ACCESS_SECRET)
+		self.replier = Replier()		
+		
 		self.api = tweepy.API(auth)
 	
 	def register(self):	
@@ -29,10 +31,26 @@ class tweet_mama:
 
 	def tweet(self,text):
 		self.api.update_status(text)
+	
+	def mentions(self):
+		m = self.api.mentions()
+		
+		texts = [ n.text for n in m ]
+		texts = [ n.user.screen_name for n in m ]
+
+		
+		replies = [ '@' + n.user.screen_name + ': ' + self.replier.analyse_tweet(n.text) + ' #ldnpydojo' for n in m ]
+
+		for reply in replies:
+			self.tweet(reply)
+		
+
 
 # search for 'hammer' 
 # respond to roman numerals
 
 tm = tweet_mama()
+m = tm.mentions()
+
 #tm.register()
 #tm.tweet('hello world')

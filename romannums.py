@@ -38,6 +38,8 @@ def attempt_roman(tweet):
 
     """
     for word in tweet.split():
+        if len(word) == 1:
+            continue
         try:
             return to_den(word)
         except KeyError:
