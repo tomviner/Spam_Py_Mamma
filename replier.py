@@ -21,7 +21,6 @@ class Replier(object):
         'beer': replies['mum'],
     }
 
-    @hashtag
     def analyse_tweet(self, tweet):
         roman_result = attempt_roman(tweet)
         if roman_result:
@@ -33,6 +32,6 @@ class Replier(object):
         return "Spammama doesn't know"
 
 replier = Replier()
-print replier.analyse_tweet('test', 'I got hammered today');
-print replier.analyse_tweet('gump', 'Fancy a meal somwhere?');
-print replier.analyse_tweet('Anthony', 'MMCXL');
+print replier.analyse_tweet('I got hammered today');
+print replier.analyse_tweet('Fancy a meal somwhere?');
+print replier.analyse_tweet('MMCXL');
