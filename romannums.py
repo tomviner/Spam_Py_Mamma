@@ -27,3 +27,21 @@ def to_den(rom):
         last_l = val
     return tot
 
+
+def attempt_roman(tweet):
+    """
+    >>> attempt_roman('I love you!')
+    1
+    >>> attempt_roman('Please tell me the arabic numeral for MMXII')
+    2012
+    >>> attempt_roman('this has no roman NUMS')
+
+    """
+    for word in tweet.split():
+        if len(word) == 1:
+            continue
+        try:
+            return to_den(word)
+        except KeyError:
+            pass
+    return None
