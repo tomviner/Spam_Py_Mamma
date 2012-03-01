@@ -5,13 +5,16 @@ class Replier(object):
     
     replies = {
         'mum': "That's what your mum said",    
+        'anywhere': 'PythonAnywhere DOT com',
     }
 
 
     keywords = {
+        'where': replies['anywhere'],
         'hammer': replies['mum'],
         'drunk': replies['mum'],
         'drink': replies['mum'],
+        'beer': replies['mum'],
     }
 
     def analyse_tweet(self, tweet):
@@ -21,3 +24,4 @@ class Replier(object):
 
 replier = Replier()
 print replier.analyse_tweet('I got hammered today');
+print replier.analyse_tweet('Fancy a meal somwhere?');
