@@ -24,7 +24,7 @@ class Replier(object):
     def analyse_tweet(self, tweet):
         roman_result = attempt_roman(tweet)
         if roman_result:
-            return "Mama says romans count it as: %d" % roman_result
+            return "Mama says romans count it as: " + roman_result
 
         for keyword, reply in self.keywords.items():
             if keyword in tweet:

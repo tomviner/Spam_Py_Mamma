@@ -47,6 +47,8 @@ def attempt_roman(tweet):
     >>> attempt_roman('this has no roman NUMS')
 
     """
+    if ' ' in tweet:
+        tweet = tweet.split(' ', 1)[1]
     orig = tweet
     for word in splitter(tweet):
         if tweet == orig and len(word) == 1:

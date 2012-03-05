@@ -45,6 +45,10 @@ class tweet_mama:
 				self.tweet(reply)
 			except tweepy.TweepError:
 				pass
+		
+		"""for t,r in zip(texts,replies):
+			print t
+			print '=> ' + r"""
 
 	def search(self):
 		m = self.api.search('#ldnpydojo')
@@ -59,5 +63,11 @@ class tweet_mama:
 tm = tweet_mama()
 m = tm.mentions()
 
+import time
+
+while True:
+	m = tm.mentions()
+	time.sleep(3)
+	print 'Mama\'s tweetin\''
 #tm.register()
 #tm.tweet('hello world')
